@@ -1,0 +1,880 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Added Prospec font-face declaration */
+@font-face {
+  font-family: "Prospec";
+  src: url("/fonts/Prospec.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Added microchip loader variables */
+  --microchip-hue: 153;
+  --microchip-primary1: hsl(var(--microchip-hue), 90%, 90%);
+  --microchip-primary3: hsl(var(--microchip-hue), 90%, 70%);
+  --microchip-primary7: hsl(var(--microchip-hue), 90%, 30%);
+  --microchip-primary9: hsl(var(--microchip-hue), 90%, 10%);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overscroll-behavior: none; /* Updated for ScrollSmoother compatibility */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+/* Updated smooth scrolling for ScrollSmoother */
+html {
+  scroll-behavior: auto; /* Let GSAP ScrollSmoother handle smooth scrolling */
+}
+
+/* Account for the fixed glassy navbar on anchor jumps */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+/* Updated GSAP ScrollSmoother wrapper styles */
+#smooth-wrapper {
+  overflow: visible;
+  width: 100%;
+  will-change: transform;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+#smooth-content {
+  overflow: visible;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Added ScrollSmoother performance optimizations */
+.smooth-scroll-wrapper {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.smooth-scroll-content {
+  will-change: transform;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  #smooth-wrapper,
+  #smooth-content,
+  .smooth-scroll-wrapper,
+  .smooth-scroll-content {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* Added Prospec font class with high specificity */
+.prospec-font {
+  font-family: "Prospec", "Geist", sans-serif !important;
+}
+
+/* Added loading screen animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-delay {
+  0%,
+  30% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-delay-2 {
+  0%,
+  60% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in-delay 1.2s ease-out forwards;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in-delay-2 1.6s ease-out forwards;
+}
+
+/* Added microchip loader styles and animations */
+.microchip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--microchip-primary1);
+}
+
+.microchip {
+  display: block;
+  width: 8rem;
+  height: auto;
+  color: var(--microchip-primary1);
+}
+
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--microchip-primary1);
+}
+
+.microchip__center,
+.microchip__dot,
+.microchip__line,
+.microchip__lines,
+.microchip__spark,
+.microchip__wave {
+  animation-duration: 5s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-iteration-count: infinite;
+}
+
+.microchip__core,
+.microchip__dot {
+  fill: var(--microchip-primary7);
+  transition: fill 0.3s;
+}
+
+.microchip__center,
+.microchip__wave {
+  transform-origin: 25px 25px;
+}
+
+.microchip__center {
+  animation-name: center-scale;
+}
+
+.microchip__dot--1 {
+  animation-name: dot-scale1;
+  transform-origin: 3px 38px;
+}
+
+.microchip__dot--2 {
+  animation-name: dot-scale2;
+  transform-origin: 3px 54px;
+}
+
+.microchip__dot--3 {
+  animation-name: dot-scale3;
+  transform-origin: 3px 70px;
+}
+
+.microchip__dot--4 {
+  animation-name: dot-scale4;
+  transform-origin: 3px 3px;
+}
+
+.microchip__dot--5 {
+  animation-name: dot-scale5;
+  transform-origin: 20px 3px;
+}
+
+.microchip__dot--6 {
+  animation-name: dot-scale6;
+  transform-origin: 3px 30px;
+}
+
+.microchip__dot--7 {
+  animation-name: dot-scale7;
+  transform-origin: 37px 3px;
+}
+
+.microchip__dot--8 {
+  animation-name: dot-scale8;
+  transform-origin: 54px 3px;
+}
+
+.microchip__dot--9 {
+  animation-name: dot-scale9;
+  transform-origin: 71px 3px;
+}
+
+.microchip__line,
+.microchip__spark,
+.microchip__wave {
+  transition: stroke 0.3s;
+}
+
+.microchip__line {
+  stroke: var(--microchip-primary7);
+}
+
+.microchip__line--1 {
+  animation-name: line-draw1;
+}
+
+.microchip__line--2 {
+  animation-name: line-draw2;
+}
+
+.microchip__line--3 {
+  animation-name: line-draw3;
+}
+
+.microchip__line--4 {
+  animation-name: line-draw4;
+}
+
+.microchip__line--5 {
+  animation-name: line-draw5;
+}
+
+.microchip__line--6 {
+  animation-name: line-draw6;
+}
+
+.microchip__line--7 {
+  animation-name: line-draw7;
+}
+
+.microchip__line--8 {
+  animation-name: line-draw8;
+}
+
+.microchip__line--9 {
+  animation-name: line-draw9;
+}
+
+.microchip__lines {
+  animation-name: lines-scale;
+  transform-origin: 54px 54px;
+}
+
+.microchip__spark,
+.microchip__wave {
+  animation-timing-function: linear;
+  stroke: var(--microchip-primary3);
+}
+
+.microchip__spark--1 {
+  animation-name: spark1;
+}
+
+.microchip__spark--2 {
+  animation-name: spark2;
+}
+
+.microchip__spark--3 {
+  animation-name: spark3;
+}
+
+.microchip__spark--4 {
+  animation-name: spark4;
+}
+
+.microchip__spark--5 {
+  animation-name: spark5;
+}
+
+.microchip__spark--6 {
+  animation-name: spark6;
+}
+
+.microchip__spark--7 {
+  animation-name: spark7;
+}
+
+.microchip__spark--8 {
+  animation-name: spark8;
+}
+
+.microchip__spark--9 {
+  animation-name: spark9;
+}
+
+.microchip__wave--1 {
+  animation-name: wave-scale1;
+}
+
+.microchip__wave--2 {
+  animation-name: wave-scale2;
+}
+
+/* Microchip Keyframe Animations */
+@keyframes center-scale {
+  from,
+  to {
+    transform: scale(0);
+  }
+  12.5%,
+  75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale1 {
+  from,
+  20%,
+  81.25%,
+  to {
+    transform: scale(0);
+  }
+  32.5%,
+  68.75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale2 {
+  from,
+  10.5%,
+  87.5%,
+  to {
+    transform: scale(0);
+  }
+  23%,
+  75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale3 {
+  from,
+  20%,
+  81.25%,
+  to {
+    transform: scale(0);
+  }
+  32.5%,
+  68.75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale4 {
+  from,
+  20%,
+  81.25%,
+  to {
+    transform: scale(0);
+  }
+  32.5%,
+  68.75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale5 {
+  from,
+  11.5%,
+  87.5%,
+  to {
+    transform: scale(0);
+  }
+  24%,
+  75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale6 {
+  from,
+  14.5%,
+  85%,
+  to {
+    transform: scale(0);
+  }
+  27%,
+  72.5% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale7 {
+  from,
+  20%,
+  81.25%,
+  to {
+    transform: scale(0);
+  }
+  32.5%,
+  68.75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale8 {
+  from,
+  11%,
+  87.5%,
+  to {
+    transform: scale(0);
+  }
+  23.5%,
+  75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dot-scale9 {
+  from,
+  20%,
+  81.25%,
+  to {
+    transform: scale(0);
+  }
+  32.5%,
+  68.75% {
+    transform: scale(1);
+  }
+}
+
+@keyframes line-draw1 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 59;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 17;
+  }
+}
+
+@keyframes line-draw2 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 42;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes line-draw3 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 59;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 17;
+  }
+}
+
+@keyframes line-draw4 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 78;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 18;
+  }
+}
+
+@keyframes line-draw5 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 60;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes line-draw6 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 91;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 31;
+  }
+}
+
+@keyframes line-draw7 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 60;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 17;
+  }
+}
+
+@keyframes line-draw8 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 43;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes line-draw9 {
+  from,
+  93.75%,
+  to {
+    stroke-dashoffset: 60;
+  }
+  25%,
+  68.75% {
+    stroke-dashoffset: 17;
+  }
+}
+
+@keyframes lines-scale {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  12.5%,
+  75% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  93.75%,
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes spark1 {
+  from,
+  27.5% {
+    stroke-dashoffset: 59;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -25;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -109;
+  }
+}
+
+@keyframes spark2 {
+  from,
+  27.5% {
+    stroke-dashoffset: 42;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -42;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -126;
+  }
+}
+
+@keyframes spark3 {
+  from,
+  27.5% {
+    stroke-dashoffset: 59;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -25;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -109;
+  }
+}
+
+@keyframes spark4 {
+  from,
+  27.5% {
+    stroke-dashoffset: 78;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -42;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -162;
+  }
+}
+
+@keyframes spark5 {
+  from,
+  27.5% {
+    stroke-dashoffset: 60;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -60;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -180;
+  }
+}
+
+@keyframes spark6 {
+  from,
+  27.5% {
+    stroke-dashoffset: 91;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -29;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -149;
+  }
+}
+
+@keyframes spark7 {
+  from,
+  27.5% {
+    stroke-dashoffset: 60;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -26;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -112;
+  }
+}
+
+@keyframes spark8 {
+  from,
+  27.5% {
+    stroke-dashoffset: 43;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -43;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -129;
+  }
+}
+
+@keyframes spark9 {
+  from,
+  27.5% {
+    stroke-dashoffset: 60;
+  }
+  50%,
+  52.5% {
+    stroke-dashoffset: -26;
+  }
+  75%,
+  to {
+    stroke-dashoffset: -112;
+  }
+}
+
+@keyframes wave-scale1 {
+  from,
+  0%,
+  25%,
+  50%,
+  75% {
+    stroke-width: 6px;
+    transform: scale(1);
+  }
+  10%,
+  35%,
+  60%,
+  85%,
+  to {
+    animation-timing-function: steps(1);
+    stroke-width: 0;
+    transform: scale(2);
+  }
+}
+
+@keyframes wave-scale2 {
+  from,
+  5%,
+  30%,
+  55%,
+  80% {
+    stroke-width: 6px;
+    transform: scale(1);
+  }
+  15%,
+  40%,
+  65%,
+  90%,
+  to {
+    animation-timing-function: steps(1);
+    stroke-width: 0;
+    transform: scale(2);
+  }
+}
