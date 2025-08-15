@@ -1,41 +1,47 @@
-import { Canvas } from "@react-three/fiber"
-import { Suspense, useRef, useState, lazy, memo } from "react"
-import { OrbitControls, Environment } from "@react-three/drei"
-import { useParallax } from "./hooks/use-parallax.js"
-import { useScrollAnimations } from "./hooks/use-scroll-animations.js"
-import LoadingScreen from "./components/loading-screen.jsx"
-import SmoothScrollWrapper from "./components/smooth-scroll-wrapper.jsx"
+import { Canvas } from "@react-three/fiber";
+import { Suspense, useRef, useState, lazy, memo } from "react";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { BrowserRouter, Router, Routes } from "react-router-dom";
+import { useParallax } from "./hooks/use-parallax.js";
+import { useScrollAnimations } from "./hooks/use-scroll-animations.js";
+import LoadingScreen from "./components/loading-screen.jsx";
+import SmoothScrollWrapper from "./components/smooth-scroll-wrapper.jsx";
 
-const Scene = lazy(() => import("./components/orbital-blob.jsx"))
-const Navbar = lazy(() => import("./components/navbar.jsx"))
-const IntroSection = lazy(() => import("./components/intro-section.jsx"))
-const Aurora = lazy(() => import("./components/aurora.jsx"))
-const StaircaseText = lazy(() => import("./components/staircase-text.jsx"))
-const Footer = lazy(() => import("./components/footer.jsx"))
+const Scene = lazy(() => import("./components/orbital-blob.jsx"));
+const Navbar = lazy(() => import("./components/navbar.jsx"));
+const IntroSection = lazy(() => import("./components/intro-section.jsx"));
+const Aurora = lazy(() => import("./components/aurora.jsx"));
+const StaircaseText = lazy(() => import("./components/staircase-text.jsx"));
+const Footer = lazy(() => import("./components/footer.jsx"));
 
+const Placement = lazy(() => import("./pages/placement/Placement.jsx"));
+const Resources = lazy(() => import("./pages/resources/Resources.jsx"));
 
 const LazyFallback = memo(({ height = "100px" }) => (
-  <div style={{ height }} className="flex items-center justify-center bg-transparent">
+  <div
+    style={{ height }}
+    className="flex items-center justify-center bg-transparent"
+  >
     <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
-))
+));
 
 export default function App() {
-  const [pulseKey, setPulseKey] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-  const heroRef = useRef(null)
+  const [pulseKey, setPulseKey] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const heroRef = useRef(null);
 
   // Only initialize parallax after loading is complete
-  const scrollRef = useParallax(isLoading ? { current: null } : heroRef)
+  const scrollRef = useParallax(isLoading ? { current: null } : heroRef);
 
-  useScrollAnimations()
+  useScrollAnimations();
 
   const handleLoadingComplete = () => {
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   if (isLoading) {
-    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
   }
 
   return (
@@ -47,7 +53,11 @@ export default function App() {
       <SmoothScrollWrapper>
         <main className="relative w-full bg-black text-white animate-fade-in">
           {/* HERO: full-viewport 3D section */}
-          <section id="hero" ref={heroRef} className="relative w-full h-[100svh] overflow-hidden will-change-transform">
+          <section
+            id="hero"
+            ref={heroRef}
+            className="relative w-full h-[100svh] overflow-hidden will-change-transform"
+          >
             {/* Subtle vignette background to match the reference */}
             <div
               aria-hidden="true"
@@ -89,12 +99,14 @@ export default function App() {
                 failIfMajorPerformanceCaveat: false,
               }}
               onCreated={({ gl }) => {
-                const canvas = gl.getContext()?.canvas ?? null
+                const canvas = gl.getContext()?.canvas ?? null;
                 if (canvas) {
                   const handleLost = (e) => {
-                    e.preventDefault()
-                  }
-                  canvas.addEventListener("webglcontextlost", handleLost, { passive: false })
+                    e.preventDefault();
+                  };
+                  canvas.addEventListener("webglcontextlost", handleLost, {
+                    passive: false,
+                  });
                 }
               }}
               camera={{ position: [0, 1.6, 8], fov: 40, near: 0.1, far: 100 }}
@@ -104,7 +116,11 @@ export default function App() {
               <fog attach="fog" args={["#000000", 12, 26]} />
 
               <Suspense fallback={null}>
-                <Scene pulseKey={pulseKey} onCenterClick={() => setPulseKey((k) => k + 1)} scrollRef={scrollRef} />
+                <Scene
+                  pulseKey={pulseKey}
+                  onCenterClick={() => setPulseKey((k) => k + 1)}
+                  scrollRef={scrollRef}
+                />
                 {/* Studio-ish environment for soft reflections */}
                 <Environment preset="studio" />
               </Suspense>
@@ -125,7 +141,8 @@ export default function App() {
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
               style={{
-                background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(5,7,10,1) 80%)",
+                background:
+                  "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(5,7,10,1) 80%)",
               }}
             />
           </section>
@@ -137,7 +154,6 @@ export default function App() {
             </Suspense>
           </div>
 
-
           {/* FOOTER */}
           <div className="slide-in-left">
             <Suspense fallback={<LazyFallback height="200px" />}>
@@ -147,5 +163,5 @@ export default function App() {
         </main>
       </SmoothScrollWrapper>
     </>
-  )
+  );
 }

@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../components/ui/sheet";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -17,22 +18,22 @@ export default function Navbar() {
   const NavLinks = ({ onClick }) => (
     <ul className="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
       <li>
-        <a
-          href="#intro"
+        <Link
+          to="/placement"
           onClick={onClick}
           className="text-sm text-white/80 hover:text-white transition-colors"
         >
-          Intro
-        </a>
+          Placement
+        </Link>
       </li>
       <li>
-        <a
-          href="#features"
+        <Link
+          to="/resources"
           onClick={onClick}
           className="text-sm text-white/80 hover:text-white transition-colors"
         >
-          Features
-        </a>
+          Resources
+        </Link>
       </li>
       <li>
         <a
